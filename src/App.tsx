@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState, useRef } from "react";
-// import Card from "./components/Card";
 import { State  }  from 'country-state-city';
 import axios from "axios";
 import CardClime from "./components/CardClime";
@@ -15,10 +14,7 @@ interface Grados {
   fahrenheit?: number;
 }
 
-type Nacionalidad = {
-  nombre: string;
-  codigo: string;
-};
+
 
 const App: React.FC = () => {
   const [ubicacion, setUbicacion] = useState<Datos[]>([]);
@@ -38,7 +34,12 @@ const App: React.FC = () => {
     fahrenheit : 0,
   })
 
-  const [nacionalidades, setNacionalidades] = useState<Nacionalidad[]>([
+  
+  const myRef = useRef<HTMLInputElement>(null);
+  const selectRefCountry = useRef<HTMLSelectElement>(null);
+  const selectRefCity = useRef<HTMLSelectElement>(null);
+
+  const nacionalidades = [
     { nombre: "México", codigo: "MX" },
     { nombre: "Argentina", codigo: "AR" },
     { nombre: "Perú", codigo: "PE" },
@@ -49,12 +50,7 @@ const App: React.FC = () => {
     { nombre: "Ecuador", codigo: "EC" },
     { nombre: "Bolivia", codigo: "BO" },
     { nombre: "Paraguay", codigo: "PY" },
-  ]);
-  const myRef = useRef<HTMLInputElement>(null);
-  const selectRefCountry = useRef<HTMLSelectElement>(null);
-  const selectRefCity = useRef<HTMLSelectElement>(null);
-
-
+  ]
   useEffect(()=>{
     if(navigator.geolocation){
         navigator.geolocation.getCurrentPosition((position)=>{
@@ -112,13 +108,13 @@ const App: React.FC = () => {
     
 
   };
-  const handleCountryChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCountryChange = () => {
     const inputValues = selectRefCountry.current?.value;
     const values =  State.getStatesOfCountry(inputValues)
     setCountryCity(values)
   };
 
-  const handleCityChange = async(e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleCityChange = async() => {
     const selectedIsoCode = selectRefCity.current?.value;
 
 
@@ -208,7 +204,6 @@ const App: React.FC = () => {
           </div>
         )
       }
-      {/* <Card/> */}
       </div>
     </Fragment>
   );
