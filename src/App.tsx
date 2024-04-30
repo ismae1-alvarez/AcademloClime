@@ -133,7 +133,7 @@ const App: React.FC = () => {
     <Fragment>
       <div style={objStyle} className="h-screen flex flex-col py-10 px-2 md:p-15 bg-cover ">
 
-      <header  className="mx-auto flex gap-3">
+      <header  className="mx-auto flex md:flex-row gap-3 flex-col">
         <form onSubmit={handleSerching} className="relative w-fit rounded-full flex items-center space-x-2">
           <button className="absolute left-2 -translate-y-1/2 top-1/2 p-1">
             <svg
